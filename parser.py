@@ -21,13 +21,13 @@ def bp_string_encode(bp_json):
     """
     Accepts blueprint JSON, encodes, compresses, and returns string.
     """
+    # convert JSON to string
     bp_json = json.dumps(bp_json)
-    bp_string = b64encode(compress(bp_json.encode()))
-    print(bp_string)
-    print(type(bp_string))
-    ...# WIP - currently working in limited testing
+    # encode as byte object, compress with zlib, encode with base64, then typecast to string
+    bp_string = str(b64encode(compress(bp_json.encode())))
+    # strip extra characters, insert leading '0' character, then return
+    return '0' + bp_string[2:-1]
 
-bp_string_encode(bp_json)
 
 def bp_string_decode(bp_string):
     """
@@ -81,3 +81,6 @@ version_num = '1.1.61'
 # print(version_encode(version_num))
 # print(version_decode(version_string))
 # print(bp_string_decode(bp_string))
+# print(bp_string_encode(bp_json))
+
+print(bp_string_encode(bp_string_decode(bp_string)))
